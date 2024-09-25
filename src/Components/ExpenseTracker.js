@@ -13,8 +13,8 @@ const [descript,setDescript] = useState('')
   const [amount,setAmount] = useState(0);
   const [trasnType,setTransType] = useState('')
 
-  const [expList,setExpList]= useState([]);
-  const [incomeList,setIncomeList]= useState([])
+  // const [expList,setExpList]= useState([]);
+  // const [incomeList,setIncomeList]= useState([])
 
   const handleShowForm = () =>{
     setShowAddForm(true)
@@ -25,11 +25,11 @@ const [descript,setDescript] = useState('')
 }
 
 const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === 'amount') {
-      setAmount(value);
-    } else if (name === 'descript') {
-      setDescript(value);
+   
+    if (e.target.name === 'amount') {
+      setAmount(e.target.value);
+    } else if (e.target.name === 'descript') {
+      setDescript(e.target.value);
     }
   };
   
@@ -37,6 +37,8 @@ const handleChange = (e) => {
 const bal = useSelector((state) => state.Balance);
 const inc = useSelector((state)=>state.Income)
 const exp = useSelector((state)=> state.Expense)
+const exList =useSelector((state)=>state.ExpenseList)
+const inList = useSelector((state)=>state.IncomeList)
 
 const dispatch = useDispatch()
 
@@ -56,11 +58,11 @@ const handleADD = () => {
   
     if (trasnType === 'Income') {
       dispatch(AddIncome({ description: descript, amount: parseFloat(amount) }));
-      setIncomeList([...incomeList,{desc:descript,amount:amount}]);
+      // setIncomeList([...incomeList,{desc:descript,amount:amount}]);
     } 
     else if (trasnType === 'Expense') {
       dispatch(AddExpense({ description: descript, amount: parseFloat(amount) }));
-      setExpList([...expList,{desc:descript,amount:amount}])
+      // setExpList([...expList,{desc:descript,amount:amount}])
     }
 
     console.log('The Amout is: '+amount)
@@ -78,19 +80,26 @@ const handleADD = () => {
       </div>
 
       <div style={{  marginTop: '50px', }}>
-        <div className=" text-center">
-          Balance is $ <b>{bal}</b>
-          <h4 style={{paddingTop:'10px'}}>${inc}</h4>
+        <div className="d-flex flex-column align-items-center text-center">
+          <span style={{marginBottom:'5px'}}>Balance is $ <b>{bal}</b> </span>
+        <div className="boxShape"> <h4 style={{paddingTop:'10px'}}>${inc}</h4>
           Total Income
-          <h4 style={{paddingTop:'10px'}}>${exp}</h4>
+          </div>
+          <div className="separator"></div>
+         <div className="boxShape"> <h4 style={{paddingTop:'10px'}}>${exp}</h4>
           Total Expense
+          </div>
         </div>
       </div>
       <div className="d-flex justify-content-around">
         <div>
             <p>Expense</p>
-            { expList.map(exl=><div className="d-flex justify-content-between">
+            {/* { expList.map(exl=><div className="d-flex justify-content-between">
                 <span>{exl.desc}</span> <span>{exl.amount}</span></div>)}
+                */}
+
+                {exList.map(el=><div className="d-flex justify-content-between">
+                  <span>{el.desc}</span><span>{el.amount}</span></div>)}
 
             
 
@@ -98,8 +107,11 @@ const handleADD = () => {
         </div>
 
        <div><p>Income</p>
-       { incomeList.map(inl=><div className="d-flex justify-content-between">
-                <span>{inl.desc}</span> <span>{inl.amount}</span></div>)}
+       {/* { incomeList.map(inl=><div className="d-flex justify-content-between">
+                <span>{inl.desc}</span> <span>{inl.amount}</span></div>)} */}
+
+                {inList.map(il=><div className="d-flex justify-content-between">
+                  <span>{il.desc}</span> <span>{il.amount}</span></div>)}
 
        
        

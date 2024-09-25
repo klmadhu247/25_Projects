@@ -18,3 +18,22 @@ p{
 
 
 }
+.boxShape{
+    
+    border:   .1em;
+    border-style:none;
+    width: 400px;
+    
+    background-color: rgba(130, 127, 127, 0.082);
+
+}
+.boxShape {
+    border: 0.1em;
+    border-style: none;
+    width: 400px;
+    background-color: rgba(130, 127, 127, 0.082);
+    margin-top: 1px;
+    border-radius: 5px;
+}
+
+

@@ -4,7 +4,12 @@ const ExpInitvalue = {
     Income: 0,
     Expense:0,
     Balance:0,
-    Transactions:[]
+    Description:'',
+    ExpenseList:[],
+    IncomeList:[]
+    
+    
+    
 }
 
 const ExpReducer = (state=ExpInitvalue,action)=>
@@ -15,6 +20,9 @@ const ExpReducer = (state=ExpInitvalue,action)=>
             return {...state,
                 Income: parseInt(state.Income) + parseInt(action.payload.amount),
                 Balance: state.Balance + parseInt(action.payload.amount), 
+                Description: action.payload.description,
+                IncomeList:[...state.IncomeList,{desc:action.payload.description,amount:action.payload.amount}]
+
               };
     
         case ADD_EXPENSE:
@@ -22,6 +30,9 @@ const ExpReducer = (state=ExpInitvalue,action)=>
             ...state,
             Expense: parseInt(state.Expense) + parseInt(action.payload.amount),
             Balance: state.Balance - action.payload.amount,
+            Description: action.payload.description,
+            ExpenseList:[...state.ExpenseList,{desc:action.payload.description,amount:action.payload.amount}]
+
             
           };
     
